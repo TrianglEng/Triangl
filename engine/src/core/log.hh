@@ -3,8 +3,9 @@
 
 #include "misc/msgdialog.hh"
 
-#define SPDLOG_FMT_EXTERNAL 1
-#define FMT_HEADER_ONLY     1
+#define SPDLOG_FMT_EXTERNAL    1
+#define FMT_HEADER_ONLY        1
+#define FMT_DEPRECATED_OSTREAM 1
 
 #define SPDLOG_LEVEL_NAMES { "trace", "dbg", "inf", "warn", "err", "fatal", "off" }
 #define SPDLOG_SHORT_LEVEL_NAMES { "T", "D", "I", "W", "E", "F", "O" }
