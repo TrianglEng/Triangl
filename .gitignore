@@ -1,0 +1,18 @@
+# ide/code editor
+.vs/
+.vscode/
+
+# binaries
+bin/
+bin-obj/
+
+# generated project files
+*.sln
+*.vcxproj*
+*.mk
+*.make
+/Makefile
+**/Makefile
+
+# log outputs
+*.log
