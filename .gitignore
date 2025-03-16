@@ -5,6 +5,7 @@
 # binaries
 bin/
 bin-obj/
+!/vendor/premake/bin
 
 # generated project files
 *.sln
