@@ -23,9 +23,9 @@
 
 namespace triangl::log {
 
-	extern std::shared_ptr<spdlog::logger> engine_logger,
-										   editor_logger,
-										   client_logger;
+	extern std::shared_ptr<spdlog::logger> ng_engine_logger,
+										   ng_editor_logger,
+										   ng_client_logger;
 
 	void init();
 	void test_build_post_fatal();
@@ -75,37 +75,35 @@ inline O& operator<<(const O& stream, const glm::mat<C, R, T, Q>& mat)
 	return stream << glm::to_string(mat);
 }
 
+#define TL_LOGGER_TRACE(logger, ...)     { logger->trace(__VA_ARGS__); }
+#define TL_LOGGER_INFO(logger, ...)      { logger->info(__VA_ARGS__); }
+#define TL_LOGGER_WARN(logger, ...)      { logger->warn(__VA_ARGS__); }
+
 #ifdef TL_TEST_BUILD
-	#define TL_LOGGER_TRACE(logger, ...)   logger->trace(__VA_ARGS__)
-	#define TL_LOGGER_INFO(logger, ...)    logger->info(__VA_ARGS__)
-	#define TL_LOGGER_WARN(logger, ...)    logger->warn(__VA_ARGS__)
-	#define TL_LOGGER_ERROR(logger, ...)   logger->error(__VA_ARGS__)
+	#define TL_LOGGER_ERROR(logger, ...) { logger->error(__VA_ARGS__); }
 	#define TL_LOGGER_FATAL(logger, ...) { logger->critical(__VA_ARGS__); ::triangl::log::test_build_post_fatal(); }
 #else
-	#define TL_LOGGER_TRACE(logger, ...)
-	#define TL_LOGGER_INFO(logger, ...)
-	#define TL_LOGGER_WARN(logger, ...)
-	#define TL_LOGGER_ERROR(logger, ...)   ::triangl::log::dist_err_or_fatal_log(false, logger->name(), __VA_ARGS__)
-	#define TL_LOGGER_FATAL(logger, ...)   ::triangl::log::dist_err_or_fatal_log(true,  logger->name(), __VA_ARGS__)
+	#define TL_LOGGER_ERROR(logger, ...) { logger->error(__VA_ARGS__); ::triangl::log::dist_err_or_fatal_log(false, logger->name(), __VA_ARGS__); }
+	#define TL_LOGGER_FATAL(logger, ...) { logger->critical(__VA_ARGS__); ::triangl::log::dist_err_or_fatal_log(true,  logger->name(), __VA_ARGS__); }
 #endif
 
-#define TL_CORE_TRACE(...)   TL_LOGGER_TRACE(::triangl::log::engine_logger, __VA_ARGS__)
-#define TL_CORE_INFO(...)    TL_LOGGER_INFO (::triangl::log::engine_logger, __VA_ARGS__)
-#define TL_CORE_WARN(...)    TL_LOGGER_WARN (::triangl::log::engine_logger, __VA_ARGS__)
-#define TL_CORE_ERROR(...)   TL_LOGGER_ERROR(::triangl::log::engine_logger, __VA_ARGS__)
-#define TL_CORE_FATAL(...)   TL_LOGGER_FATAL(::triangl::log::engine_logger, __VA_ARGS__)
+#define TL_CORE_TRACE(...)   TL_LOGGER_TRACE(::triangl::log::ng_engine_logger, __VA_ARGS__)
+#define TL_CORE_INFO(...)    TL_LOGGER_INFO (::triangl::log::ng_engine_logger, __VA_ARGS__)
+#define TL_CORE_WARN(...)    TL_LOGGER_WARN (::triangl::log::ng_engine_logger, __VA_ARGS__)
+#define TL_CORE_ERROR(...)   TL_LOGGER_ERROR(::triangl::log::ng_engine_logger, __VA_ARGS__)
+#define TL_CORE_FATAL(...)   TL_LOGGER_FATAL(::triangl::log::ng_engine_logger, __VA_ARGS__)
 
-#define TL_EDITOR_TRACE(...) TL_LOGGER_TRACE(::triangl::log::editor_logger, __VA_ARGS__)
-#define TL_EDITOR_INFO(...)  TL_LOGGER_INFO (::triangl::log::editor_logger, __VA_ARGS__)
-#define TL_EDITOR_WARN(...)  TL_LOGGER_WARN (::triangl::log::editor_logger, __VA_ARGS__)
-#define TL_EDITOR_ERROR(...) TL_LOGGER_ERROR(::triangl::log::editor_logger, __VA_ARGS__)
-#define TL_EDITOR_FATAL(...) TL_LOGGER_FATAL(::triangl::log::editor_logger, __VA_ARGS__)
+#define TL_EDITOR_TRACE(...) TL_LOGGER_TRACE(::triangl::log::ng_editor_logger, __VA_ARGS__)
+#define TL_EDITOR_INFO(...)  TL_LOGGER_INFO (::triangl::log::ng_editor_logger, __VA_ARGS__)
+#define TL_EDITOR_WARN(...)  TL_LOGGER_WARN (::triangl::log::ng_editor_logger, __VA_ARGS__)
+#define TL_EDITOR_ERROR(...) TL_LOGGER_ERROR(::triangl::log::ng_editor_logger, __VA_ARGS__)
+#define TL_EDITOR_FATAL(...) TL_LOGGER_FATAL(::triangl::log::ng_editor_logger, __VA_ARGS__)
 
-#define TL_CLIENT_TRACE(...) TL_LOGGER_TRACE(::triangl::log::client_logger, __VA_ARGS__)
-#define TL_CLIENT_INFO(...)  TL_LOGGER_INFO (::triangl::log::client_logger, __VA_ARGS__)
-#define TL_CLIENT_WARN(...)  TL_LOGGER_WARN (::triangl::log::client_logger, __VA_ARGS__)
-#define TL_CLIENT_ERROR(...) TL_LOGGER_ERROR(::triangl::log::client_logger, __VA_ARGS__)
-#define TL_CLIENT_FATAL(...) TL_LOGGER_FATAL(::triangl::log::client_logger, __VA_ARGS__)
+#define TL_CLIENT_TRACE(...) TL_LOGGER_TRACE(::triangl::log::ng_client_logger, __VA_ARGS__)
+#define TL_CLIENT_INFO(...)  TL_LOGGER_INFO (::triangl::log::ng_client_logger, __VA_ARGS__)
+#define TL_CLIENT_WARN(...)  TL_LOGGER_WARN (::triangl::log::ng_client_logger, __VA_ARGS__)
+#define TL_CLIENT_ERROR(...) TL_LOGGER_ERROR(::triangl::log::ng_client_logger, __VA_ARGS__)
+#define TL_CLIENT_FATAL(...) TL_LOGGER_FATAL(::triangl::log::ng_client_logger, __VA_ARGS__)
 
 #define TL_TRACE(...)        TL_CLIENT_TRACE(__VA_ARGS__)
 #define TL_INFO(...)         TL_CLIENT_INFO (__VA_ARGS__)

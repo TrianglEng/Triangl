@@ -6,9 +6,9 @@
 
 namespace triangl::log {
 
-	std::shared_ptr<spdlog::logger> engine_logger = nullptr,
-									editor_logger = nullptr,
-									client_logger = nullptr;
+	std::shared_ptr<spdlog::logger> ng_engine_logger = nullptr,
+									ng_editor_logger = nullptr,
+									ng_client_logger = nullptr;
 
 	void init()
 	{
@@ -32,9 +32,9 @@ namespace triangl::log {
 			return logger;
 		};
 
-		engine_logger = create_logger("ENGINE");
-		editor_logger = create_logger("EDITOR");
-		client_logger = create_logger("CLIENT");
+		ng_engine_logger = create_logger("ENGINE");
+		ng_editor_logger = create_logger("EDITOR");
+		ng_client_logger = create_logger("CLIENT");
 	}
 
 	void test_build_post_fatal()

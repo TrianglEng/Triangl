@@ -10,6 +10,10 @@ namespace triangl {
 	layer_stack::layer_stack(std::initializer_list<layer*> layers)
 		: m_layers(layers)
 	{
+		for (layer* l : layers)
+		{
+			l->on_attach();
+		}
 	}
 
 	layer_stack::~layer_stack()
