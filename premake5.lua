@@ -10,6 +10,10 @@ workspace "triangl"
 
 include "premakedeps.lua"
 
+group "vendor"
+	include "vendor/glfw"
+	include "vendor/glad"
+group ""
 group "engine"
 	include "engine"
 group ""

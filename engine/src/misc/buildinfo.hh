@@ -24,6 +24,37 @@ namespace triangl {
 		arm64
 	};
 
+	static const char* build_config_to_string(build_config cfg)
+	{
+		switch (cfg)
+		{
+		case build_config::devel: return "devel";
+		case build_config::prev:  return "prev";
+		case build_config::dist:  return "dist";
+		}
+		return nullptr;
+	}
+
+	static const char* platform_to_string(platform platform)
+	{
+		switch (platform)
+		{
+		case platform::windows: return "windows";
+		case platform::linux:   return "linux";
+		}
+		return nullptr;
+	}
+
+	static const char* architecture_to_string(architecture arch)
+	{
+		switch (arch)
+		{
+		case architecture::x64:   return "x64";
+		case architecture::arm64: return "arm64";
+		}
+		return nullptr;
+	}
+
 	#ifdef TL_BUILD_DEVEL
 		inline constexpr build_config gc_buildcfg = build_config::devel;
 	#elif defined TL_BUILD_PREV

@@ -1,20 +1,37 @@
 #include "tlpch.hh"
 #include "application.hh"
 
+#include "input/input.hh"
+#include "render/rendercmd.hh"
+#include "util/platformutil.hh"
+
 namespace triangl {
 
 	application::application(const application_spec& spec, const cmdline& args)
 		: m_spec(spec), m_args(args)
 	{
-		TL_CORE_ASSERT(!s_inst, "Another application instance already exists!");
+		TL_CORE_ASSERT(!s_inst, "another application instance already exists!");
+		s_inst = this;
 
 		log::init();
-		TL_CORE_INFO("Initialized logging.");
+		TL_CORE_INFO("initialized logging.");
 
-		TL_CORE_INFO("Engine Build Info:");
-		TL_CORE_INFO("  Compiled by Compiler: {} ({})", gc_ccinfo.name, gc_ccinfo.abbreviation);
-		TL_CORE_INFO("  Compilation at Date: {}", __DATE__);
-		TL_CORE_INFO("  Compilation at Time: {}", __TIME__);
+		TL_CORE_INFO("engine build info:");
+		TL_CORE_INFO("  compiled by compiler: {} ({})", gc_ccinfo.name, gc_ccinfo.abbreviation);
+		TL_CORE_INFO("  compilation at date: {}", __DATE__);
+		TL_CORE_INFO("  compilation at time: {}", __TIME__);
+		TL_CORE_INFO("  build configuration: {}", build_config_to_string(gc_buildcfg));
+		TL_CORE_INFO("  platform: {} ({})", platform_to_string(gc_platform), architecture_to_string(gc_arch));
+
+		m_window = window::create(m_spec.main_window_props);
+		if (!m_window || !m_window->init())
+		{
+			TL_CORE_FATAL("main application window creation failure!");
+		}
+		m_window->set_event_callback(TL_BIND_METHOD(this, application::on_event));
+
+		input::init();
+		rendercmd::init();
 	}
 
 	application::~application()
@@ -37,8 +54,9 @@ namespace triangl {
 		
 		while (m_running)
 		{
-			// TODO: actually calculate the timestep between this and the last frame
-			timestep ts = 0.0f;
+			float time = platform_util::get_time();
+			timestep ts = time - m_last_frame_time;
+			m_last_frame_time = time;
 
 			for (layer* l : m_layer_stack)
 			{
@@ -49,6 +67,8 @@ namespace triangl {
 			{
 				l->on_render();
 			}
+
+			m_window->update();
 		}
 
 		cleanup();
@@ -57,13 +77,18 @@ namespace triangl {
 	void application::cleanup()
 	{
 		m_layer_stack.pop_all();
+
+		if (m_window->is_open())
+		{
+			m_window->destroy();
+		}
 	}
 
 	void application::on_event(event& e)
 	{
 		event_dispatcher dispatcher(e);
-		dispatcher.dispatch<window_closed_event>(TL_BIND_METHOD_ON_OBJECT(this, application::on_window_closed));
-		dispatcher.dispatch<window_resized_event>(TL_BIND_METHOD_ON_OBJECT(this, application::on_window_resized));
+		dispatcher.dispatch<window_closed_event>(TL_BIND_METHOD(this, application::on_window_closed));
+		dispatcher.dispatch<window_resized_event>(TL_BIND_METHOD(this, application::on_window_resized));
 
 		for (auto it = m_layer_stack.rbegin(); it != m_layer_stack.rend(); ++it)
 		{

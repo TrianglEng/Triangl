@@ -13,6 +13,8 @@ namespace triangl {
 		return (size_t) *fnp;
 	}
 
+	#define DECLARE_SIGNAL(name, ...) typedef ::triangl::signal<__VA_ARGS__> sig_##name
+
 	template <typename... Params>
 	class signal
 	{

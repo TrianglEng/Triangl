@@ -21,7 +21,15 @@ project "triangl"
 		
 		"%{incdir.fmt}",
 		"%{incdir.spdlog}",
-		"%{incdir.glm}"
+		"%{incdir.glm}",
+		"%{incdir.glfw}",
+		"%{incdir.glad}"
+	}
+	
+	links
+	{
+		"glfw",
+		"glad"
 	}
 	
 	filter "system:windows"

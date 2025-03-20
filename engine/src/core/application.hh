@@ -2,6 +2,8 @@
 #define TRIANGL_CORE_APPLICATION_HH 1
 
 #include "core/layer_stack.hh"
+#include "core/window.hh"
+
 #include "event/app_event.hh"
 #include "misc/cmdline.hh"
 
@@ -11,6 +13,7 @@ namespace triangl {
 	{
 		std::string name = "Triangl Application";
 		std::string wdir;
+		window_props main_window_props = { name };
 	};
 
 	class application
@@ -31,6 +34,7 @@ namespace triangl {
 		const application_spec& get_spec() const { return m_spec; }
 		const cmdline& get_args() const { return m_args; }
 
+		window* get_window() const { return m_window.get(); }
 		const layer_stack& get_layer_stack() const { return m_layer_stack; }
 		bool is_running() const { return m_running; }
 
@@ -45,7 +49,9 @@ namespace triangl {
 		application_spec m_spec;
 		cmdline m_args;
 
+		std::unique_ptr<window> m_window;
 		layer_stack m_layer_stack;
+		float m_last_frame_time = 0.0f;
 		bool m_running = false;
 	private:
 		inline static application* s_inst = nullptr;

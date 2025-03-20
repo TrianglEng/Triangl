@@ -9,6 +9,6 @@
 
 #define TL_BIT(x) (1 << x)
 
-#define TL_BIND_METHOD_ON_OBJECT(p, fn) [p](auto&&... args) -> decltype(auto) { return p->fn(std::forward<decltype(args)>(args)...); }
+#define TL_BIND_METHOD(p, fn) [p](auto&&... args) -> decltype(auto) { return p->fn(std::forward<decltype(args)>(args)...); }
 
 #endif
