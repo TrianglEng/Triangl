@@ -51,6 +51,7 @@ namespace triangl {
 	}
 
 	opengl_index_buffer::opengl_index_buffer(const uint32_t* indices, uint32_t count)
+		: m_count(count)
 	{
 		m_rid = create_buffer(GL_ELEMENT_ARRAY_BUFFER, indices, count * sizeof(uint32_t), GL_STATIC_DRAW);
 	}

@@ -38,6 +38,16 @@ namespace triangl {
 		{
 			s_api->set_line_width(width);
 		}
+
+		static void draw_indexed(const std::shared_ptr<vertex_array>& vao, uint32_t index_count = 0)
+		{
+			s_api->draw_indexed(vao, index_count);
+		}
+
+		static void draw_lines(const std::shared_ptr<vertex_array>& vao, uint32_t vertex_count)
+		{
+			s_api->draw_lines(vao, vertex_count);
+		}
 	private:
 		static std::unique_ptr<renderer_api> s_api;
 	};

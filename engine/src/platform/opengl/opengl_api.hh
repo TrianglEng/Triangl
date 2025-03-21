@@ -14,6 +14,9 @@ namespace triangl {
 		virtual void set_clear_color(const glm::vec4& color) override;
 		virtual void set_clear_color(float r, float g, float b, float a) override;
 		virtual void set_line_width(float width) override;
+
+		virtual void draw_indexed(const std::shared_ptr<vertex_array>& vao, uint32_t index_count = 0) override;
+		virtual void draw_lines(const std::shared_ptr<vertex_array>& vao, uint32_t vertex_count) override;
 	};
 
 }

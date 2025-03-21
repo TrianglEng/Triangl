@@ -69,4 +69,18 @@ namespace triangl {
 		glLineWidth(width);
 	}
 
+	void opengl_api::draw_indexed(const std::shared_ptr<vertex_array>& vao, uint32_t index_count)
+	{
+		uint32_t count = index_count ? index_count : vao->get_index_buffer()->get_count();
+		vao->bind();
+
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	}
+
+	void opengl_api::draw_lines(const std::shared_ptr<vertex_array>& vao, uint32_t vertex_count)
+	{
+		vao->bind();
+		glDrawArrays(GL_LINES, 0, vertex_count);
+	}
+
 }
