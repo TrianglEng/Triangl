@@ -1,5 +1,5 @@
 #include "tlpch.hh"
-#include "openglcontext.hh"
+#include "opengl_context.hh"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -34,8 +34,8 @@ namespace triangl {
 			TL_CORE_FATAL
 			(
 				"the current renderer (gpu/video card) '{}' only supports up to opengl version {}.{}. "
-				"triangl engine needs a renderer with at least opengl {}.{} functionality. "
-				"check if there are driver updates for this renderer or try changing to another renderer which supports the minimum version.",
+				"however, triangl engine requires a renderer with at least opengl {}.{} functionality. "
+				"check if there are driver updates for this renderer or try changing to another renderer whom supports the minimum version.",
 				(const char*) glGetString(GL_RENDERER), GLVersion.major, GLVersion.minor,
 				ngc_min_gl_version_major, ngc_min_gl_version_minor
 			);

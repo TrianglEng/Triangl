@@ -56,7 +56,6 @@ namespace triangl {
 
 	bool desktop_window::init()
 	{
-		
 		if (is_open())
 		{
 			TL_CORE_WARN("tried to initialize window but the window is already open, discarding request");

@@ -2,7 +2,7 @@
 #include "context.hh"
 
 #include "render/rendererapi.hh"
-#include "platform/opengl/openglcontext.hh"
+#include "platform/opengl/opengl_context.hh"
 
 namespace triangl {
 

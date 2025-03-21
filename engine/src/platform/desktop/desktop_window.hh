@@ -49,7 +49,6 @@ namespace triangl {
 			bool fullscreen, resizable, vsync;
 			event_callback_fn event_callback;
 
-
 			sig_window_closed         &window_closed;
 			sig_window_resized        &window_resized;
 			sig_window_focused        &window_focused;

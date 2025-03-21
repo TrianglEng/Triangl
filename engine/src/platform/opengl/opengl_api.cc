@@ -1,5 +1,5 @@
 #include "tlpch.hh"
-#include "openglapi.hh"
+#include "opengl_api.hh"
 
 #include <glad/glad.h>
 

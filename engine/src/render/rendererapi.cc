@@ -1,7 +1,7 @@
 #include "tlpch.hh"
 #include "rendererapi.hh"
 
-#include "platform/opengl/openglapi.hh"
+#include "platform/opengl/opengl_api.hh"
 
 namespace triangl {
 
