@@ -26,12 +26,6 @@ project "triangl"
 		"%{incdir.glad}"
 	}
 	
-	links
-	{
-		"glfw",
-		"glad"
-	}
-	
 	filter "system:windows"
 		systemversion "latest"
 		defines

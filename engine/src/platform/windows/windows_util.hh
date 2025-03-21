@@ -7,6 +7,8 @@ namespace triangl {
 
 	class windows_platform_util : public desktop_platform_util
 	{
+	public:
+		virtual system_theme get_system_theme() const override;
 	};
 
 }

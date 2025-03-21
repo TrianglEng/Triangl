@@ -9,6 +9,10 @@ namespace triangl {
 	{
 	public:
 		windows_window(const window_props& props = {});
+
+		virtual bool init() override;
+
+		bool set_immersive_dark_mode(bool use);
 	};
 
 }

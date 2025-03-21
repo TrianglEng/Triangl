@@ -24,6 +24,7 @@ namespace triangl {
 	desktop_window::desktop_window(const window_props& props)
 		: m_data
 		  {
+			  this,
 		      props.title,
 			  props.width,
 			  props.height,
@@ -108,7 +109,9 @@ namespace triangl {
 			}
 		};
 
-		GLFWmonitor* monitor = m_data.fullscreen ? glfwGetPrimaryMonitor() : nullptr;
+		GLFWmonitor* primary_monitor = glfwGetPrimaryMonitor();
+		GLFWmonitor* monitor = m_data.fullscreen ? primary_monitor : nullptr;
+
 		m_handle = glfwCreateWindow(
 			m_data.width,
 			m_data.height,
@@ -122,6 +125,16 @@ namespace triangl {
 			TL_CORE_ERROR("failed to create glfw window!");
 			failrevert();
 			return false;
+		}
+
+		if (!m_data.fullscreen)
+		{
+			const GLFWvidmode* vidmode = glfwGetVideoMode(primary_monitor);
+			glfwSetWindowPos(
+				m_handle,
+				(vidmode->width / 2) - (m_data.width / 2),
+				(vidmode->height / 2) - (m_data.height / 2)
+			);
 		}
 
 		m_context = graphics_context::create(m_handle);

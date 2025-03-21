@@ -23,7 +23,10 @@ project "sandbox"
 	
 	links
 	{
-		"triangl"
+		"triangl",
+
+		"glfw",
+		"glad"
 	}
 	
 	filter "system:windows"
@@ -34,6 +37,10 @@ project "sandbox"
 
 			"_CRT_SECURE_NO_WARNINGS",
 			"_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
+		}
+		links
+		{
+			"dwmapi.lib"
 		}
 	
 	filter "system:linux"

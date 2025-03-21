@@ -41,9 +41,11 @@ namespace triangl {
 		virtual bool is_maximized() const override;
 		virtual bool is_focused() const override;
 		virtual void* get_native_window_handle() const override { return m_handle; }
-	private:
+	protected:
 		struct window_data
 		{
+			void* self = nullptr;
+
 			std::string title;
 			int width, height;
 			bool fullscreen, resizable, vsync;
