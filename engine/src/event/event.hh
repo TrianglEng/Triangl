@@ -23,7 +23,7 @@ namespace triangl {
 	};
 
 	#define EVENT_TYPE_DETAIL(type) \
-		static event_type get_static_event_type() { return ::triangl::event_type::##type; } \
+		static event_type get_static_event_type() { return ::triangl::event_type::type; } \
 		virtual event_type get_event_type() const override { return get_static_event_type(); } \
 		virtual std::string_view get_name() const override { return #type; }
 

@@ -23,6 +23,7 @@ triangl::application* triangl::create_application_instance(const triangl::cmdlin
 {
 	triangl::application_spec spec;
 	spec.name = "Sandbox";
+	spec.main_window_props.title = "Sandbox";
 
 	return new sandbox::sandbox_application(spec, args);
 }

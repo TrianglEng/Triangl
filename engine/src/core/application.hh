@@ -61,4 +61,4 @@ namespace triangl {
 
 }
 
-#endif TRIANGL_CORE_APPLICATION_HH
+#endif
