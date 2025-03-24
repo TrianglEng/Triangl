@@ -1,32 +1,33 @@
-project "sandbox"
-	language "c++"
-	cppdialect "c++17"
+project "Sandbox"
+	language "C++"
+	cppdialect "C++17"
 	
-	targetdir "%{outdir.bin}/%{prj.name}"
-	objdir    "%{outdir.obj}/%{prj.name}"
+	targetdir "%{OutputDir.Binaries}/%{prj.name}"
+	objdir    "%{OutputDir.Intermediates}/%{prj.name}"
 	
 	files
 	{
-		"src/**.hh",
-		"src/**.cc"
+		"Source/**.h",
+		"Source/**.cpp"
 	}
 	
 	includedirs
 	{
-		"%{incdir.triangl}",
-		"src",
+		"%{IncludeDir.Triangl}/Engine",
+		"%{IncludeDir.Triangl}",
+		"Source",
 		
-		"%{incdir.fmt}",
-		"%{incdir.spdlog}",
-		"%{incdir.glm}"
+		"%{IncludeDir.fmt}",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glm}"
 	}
 	
 	links
 	{
-		"triangl",
+		"Triangl",
 
-		"glfw",
-		"glad"
+		"GLFW",
+		"Glad"
 	}
 	
 	filter "system:windows"
@@ -49,32 +50,32 @@ project "sandbox"
 			"TL_PLATFORM_LINUX"
 		}
 	
-	filter "configurations:devel"
-		runtime "debug"
-		symbols "on"
-		kind "consoleapp"
+	filter "configurations:Development"
+		runtime "Debug"
+		symbols "On"
+		kind "ConsoleApp"
 		defines
 		{
-			"TL_BUILD_DEVEL",
+			"TL_DEVELOPMENT",
 			"TL_TEST_BUILD"
 		}
 	
-	filter "configurations:prev"
-		runtime "release"
-		optimize "speed"
-		kind "consoleapp"
+	filter "configurations:Preview"
+		runtime "Release"
+		optimize "Speed"
+		kind "ConsoleApp"
 		defines
 		{
-			"TL_BUILD_PREV",
+			"TL_PREVIEW",
 			"TL_TEST_BUILD"
 		}
 	
-	filter "configurations:dist"
-		runtime "release"
-		optimize "speed"
-		kind "windowedapp"
+	filter "configurations:Shipping"
+		runtime "Release"
+		optimize "Speed"
+		kind "WindowedApp"
 		defines
 		{
-			"TL_BUILD_DIST"
+			"TL_SHIPPING"
 		}
 	

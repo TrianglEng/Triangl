@@ -1,13 +1,13 @@
-# ide/code editor
+# IDE/Code Editor Specific
 .vs/
 .vscode/
 
-# binaries
-bin/
-bin-obj/
-!/vendor/premake/bin
+# Binary Outputs
+Binaries/
+Binaries-Int/
+!/ThirdParty/Premake/Binaries
 
-# generated project files
+# Generated Project Files
 *.sln
 *.vcxproj*
 *.mk
@@ -15,5 +15,5 @@ bin-obj/
 /Makefile
 **/Makefile
 
-# log outputs
+# Log Outputs
 *.log

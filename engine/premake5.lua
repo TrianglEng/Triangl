@@ -1,29 +1,30 @@
-project "triangl"
-	language "c++"
-	cppdialect "c++17"
-	kind "staticlib"
+project "Triangl"
+	language "C++"
+	cppdialect "C++17"
+	kind "StaticLib"
 	
-	targetdir "%{outdir.bin}/%{prj.name}"
-	objdir    "%{outdir.obj}/%{prj.name}"
+	targetdir "%{OutputDir.Binaries}/%{prj.name}"
+	objdir    "%{OutputDir.Intermediates}/%{prj.name}"
 	
-	pchheader "tlpch.hh"
-	pchsource "src/tlpch.cc"
+	pchheader "TrianglPCH.h"
+	pchsource "Source/TrianglPCH.cpp"
 
 	files
 	{
-		"src/**.hh",
-		"src/**.cc"
+		"Source/**.h",
+		"Source/**.cpp"
 	}
 	
 	includedirs
 	{
-		"src",
+		"Source/Engine",
+		"Source",
 		
-		"%{incdir.fmt}",
-		"%{incdir.spdlog}",
-		"%{incdir.glm}",
-		"%{incdir.glfw}",
-		"%{incdir.glad}"
+		"%{IncludeDir.fmt}",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 	
 	filter "system:windows"
@@ -37,7 +38,7 @@ project "triangl"
 		}
 		excludes
 		{
-			"src/platform/linux/**.cc"
+			"Source/Platform/Linux/**.cpp"
 		}
 
 	filter "system:linux"
@@ -47,32 +48,32 @@ project "triangl"
 		}
 		excludes
 		{
-			"src/platform/windows/**.cc"
+			"Source/Platform/Windows/**.cpp"
 		}
 	
-	filter "configurations:devel"
-		runtime "debug"
-		symbols "on"
+	filter "configurations:Development"
+		runtime "Debug"
+		symbols "On"
 		defines
 		{
-			"TL_BUILD_DEVEL",
+			"TL_DEVELOPMENT",
 			"TL_TEST_BUILD"
 		}
 	
-	filter "configurations:prev"
-		runtime "release"
-		optimize "speed"
+	filter "configurations:Preview"
+		runtime "Release"
+		optimize "Speed"
 		defines
 		{
-			"TL_BUILD_PREV",
+			"TL_PREVIEW",
 			"TL_TEST_BUILD"
 		}
 	
-	filter "configurations:dist"
-		runtime "release"
-		optimize "speed"
+	filter "configurations:Shipping"
+		runtime "Release"
+		optimize "Speed"
 		defines
 		{
-			"TL_BUILD_DIST"
+			"TL_SHIPPING"
 		}
 	

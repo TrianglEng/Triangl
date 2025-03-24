@@ -1,22 +1,22 @@
-workspace "triangl"
+workspace "Triangl"
 	architecture "x64"
 	configurations
 	{
-		"devel",
-		"prev",
-		"dist"
+		"Development",
+		"Preview",
+		"Shipping"
 	}
-	startproject "sandbox"
+	startproject "Sandbox"
 
-include "premakedeps.lua"
+include "Dependencies.lua"
 
-group "vendor"
-	include "vendor/glfw"
-	include "vendor/glad"
+group "Engine/ThirdParty"
+	include "ThirdParty/GLFW"
+	include "ThirdParty/Glad"
 group ""
-group "engine"
-	include "engine"
+group "Engine"
+	include "Engine"
 group ""
-group "templates"
-	include "sandbox"
+group "Templates"
+	include "Sandbox"
 group ""
