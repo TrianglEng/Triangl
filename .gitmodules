@@ -1,15 +1,15 @@
 [submodule "ThirdParty/GLFW"]
 	path = ThirdParty/GLFW
-	url = https://github.com/tlengine/GLFW
+	url = https://github.com/TrianglEng/GLFW
 [submodule "ThirdParty/Glad"]
 	path = ThirdParty/Glad
-	url = https://github.com/tlengine/glad
+	url = https://github.com/TrianglEng/glad
 [submodule "ThirdParty/glm"]
 	path = ThirdParty/glm
 	url = https://github.com/g-truc/glm
 [submodule "ThirdParty/fmt"]
 	path = ThirdParty/fmt
-	url = https://github.com/tlengine/fmt
+	url = https://github.com/TrianglEng/fmt
 [submodule "ThirdParty/spdlog"]
 	path = ThirdParty/spdlog
 	url = https://github.com/gabime/spdlog
