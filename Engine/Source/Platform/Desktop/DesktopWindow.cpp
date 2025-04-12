@@ -47,7 +47,7 @@ namespace Triangl
 
 		if (s_WindowCount == 0)
 		{
-			TL_CORE_TRACE("First window getting initialized, initializing GLFW...");
+			TL_CORE_TRACE("First window getting created, initializing GLFW...");
 			if (!glfwInit())
 			{
 				const char* msg{};

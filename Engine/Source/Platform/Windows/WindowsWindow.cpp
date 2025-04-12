@@ -7,6 +7,8 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
+#define DWMWA_USE_IMMERSIVE_DARK_MODE_PRE  20
+#define DWMWA_USE_IMMERSIVE_DARK_MODE_POST 19
 #include <dwmapi.h>
 
 namespace Triangl
@@ -50,7 +52,16 @@ namespace Triangl
 		HWND hWnd = glfwGetWin32Window(m_Handle);
 
 		BOOL bUseDarkMode = use;
-		HRESULT hResult = DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &bUseDarkMode, sizeof(BOOL));
+		HRESULT hResult = DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE_PRE, &bUseDarkMode, sizeof(BOOL));
+		if (hResult != S_OK)
+		{
+			hResult = DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE_POST, &bUseDarkMode, sizeof(BOOL));
+		}
+
+		// Forces a titlebar redraw, some Win10 versions seem to need this as the titlebar becomes dark after the focus is lost.
+		// However, on Win11 this is not an issue and it applies the theme immediately. We still got this here for Win10.
+		SendMessage(hWnd, WM_NCACTIVATE, FALSE, NULL);
+		SendMessage(hWnd, WM_NCACTIVATE, TRUE, NULL);
 
 		return hResult == S_OK;
 	}
